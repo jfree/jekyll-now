@@ -4,12 +4,4 @@ title: About
 permalink: /about/
 ---
 
-Some information about you!
-
-### More Information
-
-A place to include any other types of information that you'd like to include about yourself.
-
-### Contact me
-
-[email@domain.com](mailto:email@domain.com)
+I'm a Java developer that has created a few open source libraries including JFreeChart, Orson Charts, JFreeSVG, OrsonPDF and FXGraphics2D.  I was born and grew up in New Zealand, and currently live in Switzerland.
