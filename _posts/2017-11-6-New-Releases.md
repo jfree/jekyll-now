@@ -1,0 +1,1 @@
+Yesterday I released new versions of JFreeChart, JFreeChart-FX and FXGraphics2D.  These are the first updates I've done in a long while.  I've put some focus into streamlining the build and release procedure so that in future I will be able to do smaller and more frequent releases. 
