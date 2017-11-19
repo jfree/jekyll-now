@@ -9,7 +9,7 @@ Here is a screenshot from the JavaFX demo application (which you can find in the
 
 ![orson-charts-fx.png]({{ site.baseurl }}/screenshots/orson-charts-fx.png "Orson Charts FX Demo Application")
 
-Also included in the release are a few bug fixes:
+Also included in the release are a few bug fixes - here are the notes from the README.md file:
 
 #### Version 1.7 : 17-Nov-2017
 
