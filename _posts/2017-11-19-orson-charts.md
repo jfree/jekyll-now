@@ -19,6 +19,7 @@ Also included in the release are a few bug fixes - here are the notes from the R
 * protect from `NullPointerException` in `AbstractValueAxis3D`;
 * streamline build by removing Ant build support and moving demo code to external projects.
 
-Finally, if you are interested in running the demo code locally, but don't want to check out the demo project from GitHub, you can easily download the [demo file](https://s3-us-west-2.amazonaws.com/jfree-demos/jfree-demos-1.2-jar-with-dependencies.jar) and run it with:
+#### Run the Demo
+Finally, if you are interested in running the demo code locally but don't want to check out the demo project from GitHub, you can easily download the [demo file](https://s3-us-west-2.amazonaws.com/jfree-demos/jfree-demos-1.2-jar-with-dependencies.jar) and run it with:
 
-    java -jar jfree-demos-1.2-jar-with-dependencies.jar
+```java -jar jfree-demos-1.2-jar-with-dependencies.jar
