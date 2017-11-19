@@ -11,7 +11,7 @@ Here is a screenshot from the JavaFX demo application (which you can find in the
 
 Also included in the release are a few bug fixes:
 
-####Version 1.7 : 17-Nov-2017
+#### Version 1.7 : 17-Nov-2017
 
 * removed JavaFX support to a separate project Orson Charts FX;
 * fixed cell content bug in `GridElement`;
