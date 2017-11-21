@@ -11,11 +11,11 @@ To run these, you can download the following jar files:
 * [JFreeChart Demos](https://s3-us-west-2.amazonaws.com/jfree-demos/jfreechart-demo-1.5.0-jar-with-dependencies.jar)
 * [JFreeChart-FX Demos](https://s3-us-west-2.amazonaws.com/jfree-demos/jfreechart-fx-demo-1.0-jar-with-dependencies.jar)
 
-You can run the JFreeChart Demos using:
+You can run the JFreeChart demos using:
 
 `java -jar jfreechart-demo-1.5.0-jar-with-dependencies.jar`
 
-...and the JFreeChart FX Demos using:
+...and the JFreeChart FX demos using:
 
 `java -jar jfreechart-fx-demo-1.0-jar-with-dependencies.jar`
 
