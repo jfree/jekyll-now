@@ -4,22 +4,21 @@ title: Eclipse and JFreeChart
 ---
 Today I downloaded the latest Eclipse (Oxygen 3A) release because a customer is asking about getting started with [JFreeChart](https://github.com/jfree/jfreechart) and Eclipse, and the existing instructions for that are a bit out of date.  Here are some new instructions for getting started.
 
-Start Eclipse then select `New -> Project...` from the `File` menu.  Under the Wizards selection, choose `Maven Project`.
+Start Eclipse, then select `New -> Project...` from the `File` menu.  Under the Wizards selection, choose `Maven Project`, then click the `Next` button.
 ![select_maven_project.png]({{ site.baseurl }}/screenshots/eclipse_jfreechart/select_maven_project.png "Eclipse - Maven Project")
-When the `New Maven Project` dialog appears, select the 'Create a simple project' checkbox then click the `Next` button.
+When the `New Maven Project` dialog appears, select the 'Create a simple project' checkbox, then click the `Next` button.
 ![new_maven_project.png]({{ site.baseurl }}/screenshots/eclipse_jfreechart/new_maven_project.png "Eclipse - Maven Project")
-At the next step, fill in the details that will be used to set up the initial `pom.xml` file that will be used by Maven to build your application.  Then click the `Finish` button.
+At the next step, fill in the details that will be used to set up the initial `pom.xml` file that will be used by Maven to build your application (you can change the details later), then click the `Finish` button.
 At this point you will have a skeleton project that looks like this:
 ![project_1.png]({{ site.baseurl }}/screenshots/eclipse_jfreechart/project_1.png "Eclipse - Project")
 Now you need to edit the `pom.xml` to include a dependency for `JFreeChart 1.5.0`.  Add the lines 8 - 14 shown in the screenshot below:
 
 ![edit_pom.png]({{ site.baseurl }}/screenshots/eclipse_jfreechart/edit_pom.png "Eclipse - pom.xml")
-
-Right-click on `src/main/java` and select the `New -> Class` menu item.  Type 'First' as the name of the class and then click the `Finish` button.
+Next, you need to add the code for a simple JFreeChart application.  Right-click on `src/main/java` and select the `New -> Class` menu item.  Type 'First' as the name of the class and then click the `Finish` button.
 
 ![create_first_class.png]({{ site.baseurl }}/screenshots/eclipse_jfreechart/create_first_class.png "Eclipse - create class")
 
-Next you should edit the First.java file to contain the following code:
+Next you should edit the `First.java` file to contain the following code:
 
 {% highlight java %}import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
@@ -59,7 +58,7 @@ public class First {
 }
 {% endhighlight %}
 
-Now clicking the Run button in Eclipse will run the app and show you the following:
+Now clicking the `Run` button in Eclipse will run the app and show you the following:
 
 ![running_app.png]({{ site.baseurl }}/screenshots/eclipse_jfreechart/running_app.png "JFreeChart Application")
 
