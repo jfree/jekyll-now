@@ -65,4 +65,4 @@ public class First {
 
 Now clicking the Run button in Eclipse will run the app and show you the following:
 
-< insert running_app.png >
+![running_app.png]({{ site.baseurl }}/screenshots/eclipse_jfreechart/running_app.png "JFreeChart Application")
