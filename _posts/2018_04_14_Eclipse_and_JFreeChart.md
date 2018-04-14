@@ -26,7 +26,7 @@ Right-click on src/main/java and select the New -> Class menu item.  Type 'First
 
 Next you should edit the First.java file to contain the following code:
 
-import org.jfree.chart.ChartFactory;
+{% highlight java %} import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
@@ -62,6 +62,7 @@ public class First {
         frame.setVisible(true);
     }
 }
+{% endhighlight %}
 
 Now clicking the Run button in Eclipse will run the app and show you the following:
 
