@@ -12,8 +12,8 @@ Library                                                     | Description       
 [JFreeChart-FX](https://github.com/jfree/jfreechart-fx)     | JFreeChart extension for JavaFX       | 1.0.1               | 2.0               
 [FXGraphics2D](https://github.com/jfree/fxgraphics2d)       | Bridge from Java2D to JavaFX          | 1.8                 | 2.1              
 [JFreeSVG](https://github.com/jfree/jfreesvg)               | SVG Graphics2D implementation         | 3.4                 | 4.1              
-[OrsonPDF](https://github.com/jfree/orsonpdf)               | PDF Graphics2D implementation         | 1.9                 | Use JFreePDF     
-[JFreePDF](https://github.com/jfree/jfreepdf)               | PDF Graphics2D implementation         | Use OrsonPDF        | 2.0              
+[OrsonPDF](https://github.com/jfree/orsonpdf)               | PDF Graphics2D implementation         | 1.9                 | JFreePDF     
+[JFreePDF](https://github.com/jfree/jfreepdf)               | PDF Graphics2D implementation         | OrsonPDF            | 2.0              
 [Orson Charts](https://github.com/jfree/orson-charts)       | 3D chart library                      | 1.7                 | 2.0              
 [Orson Charts FX](https://github.com/jfree/orson-charts-fx) | Orson Charts extension for JavaFX     | 1.0                 | 2.0              
 
