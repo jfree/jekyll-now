@@ -3,7 +3,7 @@ layout: post
 title: Open Source Libraries - Current Versions
 ---
 
-I'm maintaining a number of open source Java libraries on [Github](https://github.com/jfree).  All but JFreeChart now have modular versions.  Here is a summary of the latest version numbers, with the non-modular versions in the JDK8+ column and the modular versions in the JDK11+ column.
+I'm maintaining a number of open source Java libraries on [Github](https://github.com/jfree).  I have created modular versions for all of them, except JFreeChart (which will take some more time).  Here is a summary of the latest version numbers, with the non-modular versions in the JDK8+ column and the modular versions in the JDK11+ column.
 
 
 Library                                                     | Description                           | JDK8+ (non-modular) | JDK11+ (modular)  
@@ -16,3 +16,5 @@ Library                                                     | Description       
 [JFreePDF](https://github.com/jfree/jfreepdf)               | PDF Graphics2D implementation         | Use OrsonPDF        | 2.0              
 [Orson Charts](https://github.com/jfree/orson-charts)       | 3D chart library                      | 1.7                 | 2.0              
 [Orson Charts FX](https://github.com/jfree/orson-charts-fx) | Orson Charts extension for JavaFX     | 1.0                 | 2.0              
+
+I encourage people to use the modular versions of the libraries, but for those still using Java 8 the non-modular versions are still current.
