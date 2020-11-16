@@ -7,7 +7,7 @@ I'm maintaining a number of open source Java libraries on [Github](https://githu
 
 | Library         | Description                         | JDK8+        | JDK11+       | 
 | --------------- | ----------------------------------- | -----------: | -----------: |
-| JFreeChart      | Chart library                       | 1.5.1        |              |
+| [JFreeChart](https://github.com/jfree/jfreechart)      | Chart library                       | 1.5.1        | tbd             |
 | JFreeChart-FX   | JFreeChart extension for JavaFX     | 1.0.1        | 2.0          | 
 | FXGraphics2D    | Bridge from Java2D to JavaFX        | 1.8          | 2.1          |
 | JFreeSVG        | SVG Graphics2D implementation       | 3.4          | 4.1          |
