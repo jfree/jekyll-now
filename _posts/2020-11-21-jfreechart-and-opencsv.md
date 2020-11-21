@@ -2,11 +2,11 @@
 layout: post
 title: JFreeChart and OpenCSV
 ---
-A developer that uses [JFreeChart](https://github.com/jfree/jfreechart) asked me how they should go about using JFreeChart with data from a CSV file (that is, a text file containing a table of comma-separated values).  There are many different approaches that could be taken, so here I will give one example that makes use of the [OpenCSV](http://opencsv.sourceforge.net/) project.  We are going to create a chart showing excess death statistics by country during the COVID19 crisis (the source of the data is https://ourworldindata.org/excess-mortality-covid).  The end result looks like this:
+A developer that uses [JFreeChart](https://github.com/jfree/jfreechart) asked me how they should go about using it with data from a CSV file (that is, a text file containing a table of comma-separated values).  There are many different approaches that could be taken, so here I will give one example that makes use of the [OpenCSV](http://opencsv.sourceforge.net/) project.  We are going to create a chart showing excess death statistics by country during the COVID19 crisis (the source of the data is [https://ourworldindata.org/excess-mortality-covid]).  The end result looks like this:
 
 ![opencsv-jfreechart-svg.png]({{ site.baseurl }}/screenshots/opencsv-jfreechart-svg.png "Chart created with JFreeChart and OpenCSV")
 
-We will use the latest release of Java (version 15) to create a Maven-driven modular Java application that outputs the chart in SVG format using JFreeSVG.  This, of course, requires that you have Maven installed on your computer (at the time of writing, the latest version is 3.6.3).
+We will use the latest release of Java (version 15) to create a Maven-driven modular Java application that outputs the chart in SVG format using [JFreeSVG](https://github.com/jfree/jfreesvg).  This, of course, requires that you have Maven installed on your computer (at the time of writing, the latest version is 3.6.3).
 
 To begin, create a working directory (name it however you like) and switch to that directory:
 
