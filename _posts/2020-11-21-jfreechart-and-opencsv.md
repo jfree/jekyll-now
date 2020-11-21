@@ -2,7 +2,7 @@
 layout: post
 title: JFreeChart and OpenCSV
 ---
-A developer that uses [JFreeChart](https://github.com/jfree/jfreechart) asked me how they should go about using it with data from a CSV file (that is, a text file containing a table of comma-separated values).  There are many different approaches that could be taken, so here I will give one example that makes use of the [OpenCSV](http://opencsv.sourceforge.net/) project.  We are going to create a chart showing excess death statistics by country during the COVID19 crisis (the source of the data is [https://ourworldindata.org/excess-mortality-covid]).  The end result looks like this:
+A developer that uses [JFreeChart](https://github.com/jfree/jfreechart) asked me how they should go about using it with data from a CSV file (that is, a text file containing a table of comma-separated values).  There are many different approaches that could be taken, so here I will give one example that makes use of the [OpenCSV](http://opencsv.sourceforge.net/) project.  We are going to create a chart showing excess death statistics by country during the COVID19 crisis (the source of the data is [https://ourworldindata.org/excess-mortality-covid](https://ourworldindata.org/excess-mortality-covid)).  The end result looks like this:
 
 ![opencsv-jfreechart-svg.png]({{ site.baseurl }}/screenshots/opencsv-jfreechart-svg.png "Chart created with JFreeChart and OpenCSV")
 
@@ -10,8 +10,10 @@ We will use the latest release of Java (version 15) to create a Maven-driven mod
 
 To begin, create a working directory (name it however you like) and switch to that directory:
 
-    $ mkdir working
-    $ cd working
+```
+$ mkdir working
+$ cd working
+```
 
 Next, go to https://ourworldindata.org/excess-mortality-covid and download the `excess-mortality-p-scores.csv` file to the working directory.  If you are curious, you can open this file with a text editor (or a spreadsheet program) and take a look at the data.  Our goal is to read this data and create a chart that lets us visualise it easily.
 
@@ -147,74 +149,79 @@ With these formalities out of the way, we can begin working on the Java code for
 
 From within the src/main/java directory, create the subdirectories required for the package (if you are using a Java integrated development environment (IDE), it will take care of this for you):
 
-    $ mkdir -p org/jfree/chart/demo/csv
-    $ cd org/jfree/chart/demo/csv
+``` Bash
+$ mkdir -p org/jfree/chart/demo/csv
+$ cd org/jfree/chart/demo/csv
+```
 
 Now create the following file, ExcessMortalityBean.java:
 
-    package org.jfree.chart.demo.csv;
+``` Java
+package org.jfree.chart.demo.csv;
 
-    import java.time.LocalDate;
-    import com.opencsv.bean.CsvBindByName;
-    import com.opencsv.bean.CsvDate;
+import java.time.LocalDate;
+import com.opencsv.bean.CsvBindByName;
+import com.opencsv.bean.CsvDate;
 
-    /**
-     * Bean class for recording excess mortality data from 
-     * https://ourworldindata.org/excess-mortality-covid
-     * 
-     * Includes annotations to configure for OpenCSV to read the data file.
-     */
-    public class ExcessMortalityBean {
+/**
+ * Bean class for recording excess mortality data from 
+ * https://ourworldindata.org/excess-mortality-covid
+ * 
+ * Includes annotations to configure for OpenCSV to read the data file.
+ */
+public class ExcessMortalityBean {
 
-        @CsvBindByName
-        private String entity;
+    @CsvBindByName
+    private String entity;
 
-        @CsvBindByName
-        private String code;
+    @CsvBindByName
+    private String code;
 
-        @CsvDate("yyyy-MM-dd")
-        @CsvBindByName(column="Date")
-        private LocalDate date;
+    @CsvDate("yyyy-MM-dd")
+    @CsvBindByName(column="Date")
+    private LocalDate date;
 
-        @CsvBindByName(column = "Excess mortality P-scores, all ages")
-        private double excessPercent;
+    @CsvBindByName(column = "Excess mortality P-scores, all ages")
+    private double excessPercent;
 
-        public ExcessMortalityBean() {
-        }
-
-        public String getEntity() {
-            return entity;
-        }
-
-        public void setEntity(String entity) {
-            this.entity = entity;
-        }
-
-        public String getCode() {
-            return code;
-        }
-
-        public void setCode(String code) {
-            this.code = code;
-        }
-
-        public LocalDate getDate() {
-            return date;
-        }
-
-        public void setDate(LocalDate date) {
-            this.date = date;
-        }
-
-        public double getExcessPercent() {
-            return excessPercent;
-        }
-
-        public void setExcessPercent(double excessPercent) {
-            this.excessPercent = excessPercent;
-        }
-
+    public ExcessMortalityBean() {
+        
     }
+
+    public String getEntity() {
+        return entity;
+    }
+
+    public void setEntity(String entity) {
+        this.entity = entity;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public double getExcessPercent() {
+        return excessPercent;
+    }
+
+    public void setExcessPercent(double excessPercent) {
+        this.excessPercent = excessPercent;
+    }
+
+}
+```
 
 We will create a second class, App.java that contains the main application code.  We've put everything in the main() method, which isn't how you would structure a larger Java application but for the purposes of a demo it let's us focus on just the important code:
 
