@@ -10,7 +10,7 @@ We will use the latest release of Java (version 15) to create a Maven-driven mod
 
 To begin, create a working directory (name it however you like) and switch to that directory:
 
-```
+```bash
 $ mkdir working
 $ cd working
 ```
@@ -127,11 +127,13 @@ $ mkdir -p src/main/java
 
 Now switch to the java directory:
 
-    $ cd src/main/java
+```bash
+$ cd src/main/java
+```
 
 Recall that we said we will create a modular Java application.  Create the following `module-info.java` file to define the name of the module for the demo applicaiton and list the modules that our application will depend upon (the same dependencies we already set up in Maven, plus a couple of modules that ship with the JDK itself):
 
-```
+```java
 module opencsvdemo {
     requires opencsv;
     requires org.jfree.jfreechart;
@@ -142,7 +144,7 @@ module opencsvdemo {
 }
 ```
 
-The module name is `opencsvdemo`.  If you plan to distribute a Java module (whether it be an application or an API) you should ensure that the module name is unique.  We don't need to worry so much about that here, since our demo is a "throw-away" project.  You can read some more about that in this post at Stack Overflow: https://stackoverflow.com/questions/43192741/how-should-i-name-my-java-9-module
+The module name is `opencsvdemo`.  If you plan to distribute a Java module (whether it be an application or an API) you should ensure that the module name is unique.  We don't need to worry so much about that here, since our demo is a "throw-away" project.  You can read some more about that in this post at Stack Overflow: [https://stackoverflow.com/questions/43192741/how-should-i-name-my-java-9-module](https://stackoverflow.com/questions/43192741/how-should-i-name-my-java-9-module).
 
 The first two modules required are `opencsv` and `org.jfree.jfreechart`.  These are not yet fully modular libraries but, rather, Java 8 jar files.  However, the Java module system can import these jars as "automatic modules".  
 
@@ -152,14 +154,14 @@ Our application will also require `java.desktop` and `java.sql` from the JDK (th
 
 With these formalities out of the way, we can begin working on the Java code for our application.  We will use OpenCSV to read the CSV file.  To do this, we first create a Java class that will be used to store one data item (or row) from the CSV file.  I've called this `ExcessMortalityBean.java`, and created it in the `org.jfree.chart.demo.csv` package.  This class has one attribute per column in the data file.
 
-From within the src/main/java directory, create the subdirectories required for the package (if you are using a Java integrated development environment (IDE), it will take care of this for you):
+From within the `src/main/java` directory, create the subdirectories required for the package (if you are using a Java integrated development environment (IDE), it will take care of this for you):
 
-```
+```bash
 $ mkdir -p org/jfree/chart/demo/csv
 $ cd org/jfree/chart/demo/csv
 ```
 
-Now create the following file, `ExcessMortalityBean.java`:
+Now create the following file, `ExcessMortalityBean.java`.  Notice in the source file how the attributes are annotated to inform OpenCSV how it should read the data from the CSV into instances of this bean class:
 
 ```java
 package org.jfree.chart.demo.csv;
@@ -230,7 +232,7 @@ public class ExcessMortalityBean {
 
 We will create a second class, `App.java` that contains the main application code.  We've put everything in the `main()` method, which isn't how you would structure a larger Java application but for the purposes of a demo it let's us focus on just the important code:
 
-```
+```java
 package org.jfree.chart.demo.csv;
 
 import com.opencsv.bean.CsvToBeanBuilder;
@@ -320,6 +322,8 @@ public class App {
 
 }
 ```
+
+The comments in the source code describe what each section of the code is doing, starting with reading the CSV file (using OpenCSV), creating a dataset for JFreeChart, configuring the chart instance, then rendering the chart as both a PNG image file and a Scalable Vector Graphics (SVG) file.
 
 Now that everything is in place, we can use Maven to build our application:
 
