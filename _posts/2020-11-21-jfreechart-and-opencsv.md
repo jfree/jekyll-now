@@ -156,8 +156,7 @@ $ cd org/jfree/chart/demo/csv
 
 Now create the following file, ExcessMortalityBean.java:
 
-``` Java
-package org.jfree.chart.demo.csv;
+{% highlight java %}package org.jfree.chart.demo.csv;
 
 import java.time.LocalDate;
 import com.opencsv.bean.CsvBindByName;
@@ -221,98 +220,99 @@ public class ExcessMortalityBean {
     }
 
 }
-```
+{% end highlight %}
 
-We will create a second class, App.java that contains the main application code.  We've put everything in the main() method, which isn't how you would structure a larger Java application but for the purposes of a demo it let's us focus on just the important code:
+We will create a second class, `App.java` that contains the main application code.  We've put everything in the `main()` method, which isn't how you would structure a larger Java application but for the purposes of a demo it let's us focus on just the important code:
 
-    package org.jfree.chart.demo.csv;
+{% highlight java %}package org.jfree.chart.demo.csv;
 
-    import com.opencsv.bean.CsvToBeanBuilder;
-    import java.awt.BasicStroke;
-    import java.awt.Rectangle;
-    import java.io.File;
-    import java.io.FileNotFoundException;
-    import java.io.FileReader;
-    import java.io.IOException;
-    import java.time.LocalDate;
-    import java.util.List;
-    import java.util.Arrays;
-    import org.jfree.chart.JFreeChart;
-    import org.jfree.chart.ChartFactory;
-    import org.jfree.chart.StandardChartTheme;
-    import org.jfree.chart.plot.XYPlot;
-    import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
-    import org.jfree.chart.title.TextTitle;
-    import org.jfree.data.time.TimeSeriesCollection;
-    import org.jfree.data.time.TimeSeries;
-    import org.jfree.data.time.Day;
-    import org.jfree.chart.ChartUtils;
-    import org.jfree.svg.SVGGraphics2D;
-    import org.jfree.svg.SVGUtils;
+import com.opencsv.bean.CsvToBeanBuilder;
+import java.awt.BasicStroke;
+import java.awt.Rectangle;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Arrays;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.StandardChartTheme;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.chart.title.TextTitle;
+import org.jfree.data.time.TimeSeriesCollection;
+import org.jfree.data.time.TimeSeries;
+import org.jfree.data.time.Day;
+import org.jfree.chart.ChartUtils;
+import org.jfree.svg.SVGGraphics2D;
+import org.jfree.svg.SVGUtils;
+
+/**
+ * App that produces a chart from CSV data.
+ */
+public class App {
+
+    private static final String FILENAME = "excess-mortality-p-scores.csv";
 
     /**
-     * App that produces a chart from CSV data.
+     * Entry point for the application.
+     * 
+     * @param args  ignored.
+     * 
+     * @throws FileNotFoundException
+     * @throws IOException 
      */
-    public class App {
+    public static void main(String[] args) throws FileNotFoundException, IOException {
 
-        private static final String FILENAME = "excess-mortality-p-scores.csv";
+        // read the CSV file
+        System.out.println("Reading the file " + FILENAME);
+        FileReader fileReader = new FileReader(FILENAME);
+        List<ExcessMortalityBean> excessMortalityList = new CsvToBeanBuilder(fileReader)
+                .withType(ExcessMortalityBean.class).build().parse();
 
-        /**
-         * Entry point for the application.
-         * 
-         * @param args  ignored.
-         * 
-         * @throws FileNotFoundException
-         * @throws IOException 
-         */
-        public static void main(String[] args) throws FileNotFoundException, IOException {
-
-            // read the CSV file
-            System.out.println("Reading the file " + FILENAME);
-            FileReader fileReader = new FileReader(FILENAME);
-            List<ExcessMortalityBean> excessMortalityList = new CsvToBeanBuilder(fileReader)
-                    .withType(ExcessMortalityBean.class).build().parse();
-
-            // move the data into a JFreeChart dataset
-            System.out.println("Creating a JFreeChart dataset from a subset of the data");
-            List<String> countries = Arrays.asList("CAN", "CHE", "FRA", "ITA", "LTU", "NZL");
-            TimeSeriesCollection dataset = new TimeSeriesCollection();
-            for (ExcessMortalityBean bean : excessMortalityList) {
-                String country = bean.getCode();
-                if (!countries.contains(country)) continue;
-                TimeSeries series = dataset.getSeries(country);
-                if (series == null) {
-                    series = new TimeSeries(country);
-                    dataset.addSeries(series);
-                }
-                LocalDate day = bean.getDate();
-                series.addOrUpdate(new Day(day.getDayOfMonth(), day.getMonthValue(), day.getYear()), bean.getExcessPercent());
+        // move the data into a JFreeChart dataset
+        System.out.println("Creating a JFreeChart dataset from a subset of the data");
+        List<String> countries = Arrays.asList("CAN", "CHE", "FRA", "ITA", "LTU", "NZL");
+        TimeSeriesCollection dataset = new TimeSeriesCollection();
+        for (ExcessMortalityBean bean : excessMortalityList) {
+            String country = bean.getCode();
+            if (!countries.contains(country)) continue;
+            TimeSeries series = dataset.getSeries(country);
+            if (series == null) {
+                series = new TimeSeries(country);
+                dataset.addSeries(series);
             }
-
-            // configure JFreeChart for displaying the data
-            System.out.println("Setting up JFreeChart");
-            JFreeChart chart = ChartFactory.createTimeSeriesChart(
-                "Excess Mortality By Country", "Date", "Excess Mortality (%)", dataset);
-            chart.addSubtitle(new TextTitle("Source: https://ourworldindata.org/excess-mortality-covid"));
-            XYPlot plot = (XYPlot) chart.getPlot();
-            XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) plot.getRenderer();
-            renderer.setAutoPopulateSeriesStroke(false);
-            renderer.setDefaultStroke(new BasicStroke(3.0f));
-            StandardChartTheme.createDarknessTheme().apply(chart);
-
-            // render to chart to a PNG file
-            System.out.println("Rendering the chart to a PNG file");
-            ChartUtils.saveChartAsPNG(new File("chart.png"), chart, 1000, 640);
-
-            // render the chart to an SVG file
-            System.out.println("Rendering the chart to a SVG file");
-            SVGGraphics2D g2 = new SVGGraphics2D(720, 480);
-            chart.draw(g2, new Rectangle(720, 480));
-            //SVGUtils.writeToHTML(new File("svg.html"), "JFreeChart CSV Demo", g2.getSVGElement());
-            SVGUtils.writeToSVG(new File("chart.svg"), g2.getSVGElement());
+            LocalDate day = bean.getDate();
+            series.addOrUpdate(new Day(day.getDayOfMonth(), day.getMonthValue(), day.getYear()), bean.getExcessPercent());
         }
 
+        // configure JFreeChart for displaying the data
+        System.out.println("Setting up JFreeChart");
+        JFreeChart chart = ChartFactory.createTimeSeriesChart(
+            "Excess Mortality By Country", "Date", "Excess Mortality (%)", dataset);
+        chart.addSubtitle(new TextTitle("Source: https://ourworldindata.org/excess-mortality-covid"));
+        XYPlot plot = (XYPlot) chart.getPlot();
+        XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) plot.getRenderer();
+        renderer.setAutoPopulateSeriesStroke(false);
+        renderer.setDefaultStroke(new BasicStroke(3.0f));
+        StandardChartTheme.createDarknessTheme().apply(chart);
+
+        // render to chart to a PNG file
+        System.out.println("Rendering the chart to a PNG file");
+        ChartUtils.saveChartAsPNG(new File("chart.png"), chart, 1000, 640);
+
+        // render the chart to an SVG file
+        System.out.println("Rendering the chart to a SVG file");
+        SVGGraphics2D g2 = new SVGGraphics2D(720, 480);
+        chart.draw(g2, new Rectangle(720, 480));
+        //SVGUtils.writeToHTML(new File("svg.html"), "JFreeChart CSV Demo", g2.getSVGElement());
+        SVGUtils.writeToSVG(new File("chart.svg"), g2.getSVGElement());
     }
+
+}
+{% end highlight %}
 
 Now that everything is in place, we can use Maven to build our application:
 
@@ -324,10 +324,12 @@ And finally we can run our application using Java and specifying the module path
 
 As the program runs, it will produce the following output on the console:
 
-    Reading the file excess-mortality-p-scores.csv
-    Creating a JFreeChart dataset from a subset of the data
-    Setting up JFreeChart
-    Rendering the chart to a PNG file
-    Rendering the chart to a SVG file
+```
+Reading the file excess-mortality-p-scores.csv
+Creating a JFreeChart dataset from a subset of the data
+Setting up JFreeChart
+Rendering the chart to a PNG file
+Rendering the chart to a SVG file
+```
 
-After the program completes, you will find two files in the working directory, a PNG and an SVG version of the chart.  If you open the SVG file with a web-browser, you will see the chart shown at the top of this post.  Congratulations on creating a modular Java application!
+After the program completes, you will find two files in the working directory, a PNG and an SVG version of the chart.  If you open the SVG file with a web-browser, you will see the chart shown at the top of this post.  Congratulations on creating a modular Java application with OpenCSV, JFreeChart and JFreeSVG!
