@@ -131,6 +131,7 @@ Now switch to the java directory:
 
 Recall that we said we will create a modular Java application.  Create the following `module-info.java` file to define the name of the module for the demo applicaiton and list the modules that our application will depend upon (the same dependencies we already set up in Maven, plus a couple of modules that ship with the JDK itself):
 
+```
 module opencsvdemo {
     requires opencsv;
     requires org.jfree.jfreechart;
@@ -139,6 +140,7 @@ module opencsvdemo {
     requires java.sql;
     exports org.jfree.chart.csv;
 }
+```
 
 The module name is `opencsvdemo`.  If you plan to distribute a Java module (whether it be an application or an API) you should ensure that the module name is unique.  We don't need to worry so much about that here, since our demo is a "throw-away" project.  You can read some more about that in this post at Stack Overflow: https://stackoverflow.com/questions/43192741/how-should-i-name-my-java-9-module
 
@@ -152,14 +154,15 @@ With these formalities out of the way, we can begin working on the Java code for
 
 From within the src/main/java directory, create the subdirectories required for the package (if you are using a Java integrated development environment (IDE), it will take care of this for you):
 
-``` Bash
+```
 $ mkdir -p org/jfree/chart/demo/csv
 $ cd org/jfree/chart/demo/csv
 ```
 
-Now create the following file, ExcessMortalityBean.java:
+Now create the following file, `ExcessMortalityBean.java`:
 
-{% highlight java %}package org.jfree.chart.demo.csv;
+```java
+package org.jfree.chart.demo.csv;
 
 import java.time.LocalDate;
 import com.opencsv.bean.CsvBindByName;
@@ -223,11 +226,12 @@ public class ExcessMortalityBean {
     }
 
 }
-{% end highlight %}
+```
 
 We will create a second class, `App.java` that contains the main application code.  We've put everything in the `main()` method, which isn't how you would structure a larger Java application but for the purposes of a demo it let's us focus on just the important code:
 
-{% highlight java %}package org.jfree.chart.demo.csv;
+```
+package org.jfree.chart.demo.csv;
 
 import com.opencsv.bean.CsvToBeanBuilder;
 import java.awt.BasicStroke;
@@ -315,7 +319,7 @@ public class App {
     }
 
 }
-{% end highlight %}
+```
 
 Now that everything is in place, we can use Maven to build our application:
 
