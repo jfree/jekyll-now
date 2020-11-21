@@ -15,7 +15,7 @@ $ mkdir working
 $ cd working
 ```
 
-Next, go to [https://ourworldindata.org/excess-mortality-covid](https://ourworldindata.org/excess-mortality-covid) and download the `excess-mortality-p-scores.csv` file to the working directory.  If you are curious, you can open this file with a text editor (or a spreadsheet program) and take a look at the data.  Our goal is to read this data and create a chart that lets us visualise it easily.
+Next, go to [https://ourworldindata.org/excess-mortality-covid](https://ourworldindata.org/excess-mortality-covid) and download the `excess-mortality-p-scores.csv` file to the working directory (to download the data, scroll down the web page to the section "Excess mortality for all ages" then click the `Download` tab beneath the chart on the right hand side, you should then see a blue button for downloading the CSV data).  If you are curious, you can open this file with a text editor (or a spreadsheet program) and take a look at the data.  Our goal is to read this data and create a chart that lets us visualise it easily.
 
 We can now start creating the Maven project and our Java source files.  The first step is to create a project file (`pom.xml`) for Maven, to describe the application we will create, its dependencies and the versions of the Maven plugins that we want to use.  The file should be created at the top level in the working directory, and looks like this:
 
@@ -150,7 +150,7 @@ The first two modules required are `opencsv` and `org.jfree.jfreechart`.  These 
 
 Our application will also require the modules `java.desktop` and `java.sql` from the JDK (the latter is a consequence of some features in `OpenCSV` that we won't be using).
 
-With these formalities out of the way, we can begin working on the Java code for our application.  We will use [OpenCSV](http://opencsv.sourceforge.net) to read the CSV file.  To do this, we first create a Java class that will be used to store one data item (or row) from the CSV file.  I've called this `ExcessMortalityBean.java`, and created it in the `org.jfree.chart.demo.csv` package.  This class has one attribute per column in the data file.
+With these formalities out of the way, we can begin working on the Java classes (just two of them) required for our application.  The first is a Java class that will be used by OpenCSV to store one data item (or row) from the CSV file.  I've called this `ExcessMortalityBean.java`, and created it in the `org.jfree.chart.demo.csv` package.  This class has one attribute per column in the data file.
 
 From within the `src/main/java` directory, create the subdirectories required for the package (if you are using a Java integrated development environment (IDE), it will take care of this for you):
 
@@ -190,7 +190,6 @@ public class ExcessMortalityBean {
     private double excessPercent;
 
     public ExcessMortalityBean() {
-        
     }
 
     public String getEntity() {
@@ -228,7 +227,7 @@ public class ExcessMortalityBean {
 }
 ```
 
-We will create a second class, `App.java` that contains the main application code.  We've put everything in the `main()` method, which isn't how you would structure a larger Java application but for the purposes of a demo it let's us focus on just the important code:
+We will create a second class, `App.java` that contains the main application code.  We've put everything in the `main()` method, which isn't how you would structure a larger Java application but for the purposes of a demo it lets us focus on just the essential code:
 
 ```java
 package org.jfree.chart.demo.csv;
@@ -323,11 +322,11 @@ public class App {
 
 The comments in the source code describe what each section of the code is doing, starting with reading the CSV file (using OpenCSV), creating a dataset for JFreeChart, configuring the chart instance, then rendering the chart as both a PNG image file and a Scalable Vector Graphics (SVG) file.
 
-Now that everything is in place, we can use Maven to build our application:
+Now that everything is in place, we can use Maven to build our application.  Switch back to the working directory, the location of the `pom.xml` file and type the following command to trigger a Maven build:
 
     $ mvn clean package
 
-And finally we can run our application using Java and specifying the module path and module to run:
+Assuming this worked without errors, we can run our application using Java (specifying the module path and module to run) as follows:
 
     $ java --module-path target/jfreechart-csv-demo-1.0.jar:target/dependency -m opencsvdemo
 
@@ -341,4 +340,4 @@ Rendering the chart to a PNG file
 Rendering the chart to a SVG file
 ```
 
-After the program completes, you will find two files in the working directory, a PNG and an SVG version of the chart.  If you open the SVG file with a web-browser, you will see the chart shown at the top of this post.  Congratulations on creating a modular Java application with OpenCSV, JFreeChart and JFreeSVG!
+After the program completes, you will find two new files in the working directory, a PNG and an SVG version of the chart.  If you open the SVG file with a web-browser, you will see the chart shown at the top of this post.  Congratulations on creating a modular Java application with [OpenCSV](http://opencsv.sourceforge.net/), [JFreeChart](https://github.com/jfree/jfreechart) and [JFreeSVG](https://github.com/jfree/jfreesvg)!
