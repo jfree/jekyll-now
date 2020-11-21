@@ -322,13 +322,17 @@ public class App {
 
 The comments in the source code describe what each section of the code is doing, starting with reading the CSV file (using OpenCSV), creating a dataset for JFreeChart, configuring the chart instance, then rendering the chart as both a PNG image file and a Scalable Vector Graphics (SVG) file.
 
-Now that everything is in place, we can use Maven to build our application.  Switch back to the working directory, the location of the `pom.xml` file and type the following command to trigger a Maven build:
+Now that everything is in place, we can use Maven to build our application.  Switch back to the working directory, the location of the `pom.xml` file, and type the following command to trigger a Maven build:
 
-    $ mvn clean package
+```bash
+$ mvn clean package
+```
 
 Assuming this worked without errors, we can run our application using Java (specifying the module path and module to run) as follows:
 
-    $ java --module-path target/jfreechart-csv-demo-1.0.jar:target/dependency -m opencsvdemo
+```bash
+$ java --module-path target/jfreechart-csv-demo-1.0.jar:target/dependency -m opencsvdemo
+```
 
 As the program runs, it will produce the following output on the console:
 
@@ -340,4 +344,6 @@ Rendering the chart to a PNG file
 Rendering the chart to a SVG file
 ```
 
-After the program completes, you will find two new files in the working directory, a PNG and an SVG version of the chart.  If you open the SVG file with a web-browser, you will see the chart shown at the top of this post.  Congratulations on creating a modular Java application with [OpenCSV](http://opencsv.sourceforge.net/), [JFreeChart](https://github.com/jfree/jfreechart) and [JFreeSVG](https://github.com/jfree/jfreesvg)!
+After the program completes, you will find two new files in the working directory, a PNG and an SVG version of the chart.  If you open the SVG file with a web-browser, you will see the chart shown at the top of this post.  
+
+Congratulations on creating a modular Java application with [OpenCSV](http://opencsv.sourceforge.net/), [JFreeChart](https://github.com/jfree/jfreechart) and [JFreeSVG](https://github.com/jfree/jfreesvg)!
