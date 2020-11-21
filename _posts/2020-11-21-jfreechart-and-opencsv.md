@@ -115,9 +115,9 @@ We can now start creating the Maven project and our Java source files.  The firs
 </project>
 ```
 
-If you are not very familiar with Maven, don't focus too much on the details in the `pom.xml` for now.  The most important section is the dependencies, where we have declared that we want to use OpenCSV version 5.3, JFreeChart version 1.5.1 and JFreeSVG version 4.1.  Later when we build the project, Maven will download these dependencies automatically.  
+If you are not very familiar with Maven, don't focus too much on the details in the `pom.xml` for now.  The most important section is the dependencies, where we have declared that we want to use [OpenCSV](http://opencsv.sourceforge.net/) version 5.3, [JFreeChart](https://github.com/jfree/jfreechart) version 1.5.1 and [JFreeSVG](https://github.com/jfree/jfreesvg) version 4.1.  Later when we build the project, Maven will download these dependencies automatically.  
 
-The plugin section is related to Maven itself and controls the versions of plugins that will be used by Maven when we build our application.  There is also an important detail in the configuration for the maven-jar-plugin, where we've specified the name of the main class for the application.  This will add some info to the jar file to make it simpler to run the application once it is complete.
+The plugin section is related to Maven itself and controls the versions of plugins that will be used by Maven when we build our application.  There is also an important detail in the configuration for the `maven-jar-plugin`, where we've specified the name of the main class for the application.  This will add some info to the jar file to make it simpler to run the application once it is complete.
 
 Next, we will begin creating the source files for our Java application.  Now, Maven expects to find project files arranged in a certain way, so we will first create a directory to contain the Java application source code, by convention `src/main/java`:
 
