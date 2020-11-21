@@ -131,7 +131,7 @@ Now switch to the java directory:
 $ cd src/main/java
 ```
 
-Recall that we said we will create a modular Java application.  This means we need to define the name of the module for the demo applicaiton and list the modules that our application will depend upon (the same dependencies we already set up in Maven, plus a couple of modules that ship with the JDK itself).  This is done with the following `module-info.java` file (create this within the `src/main/java` directory):
+Recall that we said we will create a modular Java application.  This means we need to define the name of the module for the demo application and list the modules that our application will depend upon (the same dependencies we already set up in Maven, plus a couple of modules that ship with the JDK itself).  This is done with the following `module-info.java` file (create this within the `src/main/java` directory):
 
 ```java
 module opencsvdemo {
