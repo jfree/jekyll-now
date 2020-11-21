@@ -15,112 +15,115 @@ $ mkdir working
 $ cd working
 ```
 
-Next, go to https://ourworldindata.org/excess-mortality-covid and download the `excess-mortality-p-scores.csv` file to the working directory.  If you are curious, you can open this file with a text editor (or a spreadsheet program) and take a look at the data.  Our goal is to read this data and create a chart that lets us visualise it easily.
+Next, go to [https://ourworldindata.org/excess-mortality-covid](https://ourworldindata.org/excess-mortality-covid) and download the `excess-mortality-p-scores.csv` file to the working directory.  If you are curious, you can open this file with a text editor (or a spreadsheet program) and take a look at the data.  Our goal is to read this data and create a chart that lets us visualise it easily.
 
-We can now start creating the Maven project and our Java source files.  The first step is to create a project file (pom.xml) for Maven, to describe the application we will create, it's dependencies and the versions of the Maven plugins that we want to use.  The file should be created at the top level in the working directory, and looks like this:
+We can now start creating the Maven project and our Java source files.  The first step is to create a project file (`pom.xml`) for Maven, to describe the application we will create, its dependencies and the versions of the Maven plugins that we want to use.  The file should be created at the top level in the working directory, and looks like this:
 
-    <?xml version="1.0" encoding="UTF-8"?>
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
 
-    <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-        <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-        <groupId>org.jfree</groupId>
-        <artifactId>jfreechart-csv-demo</artifactId>
-        <version>1.0</version>
+    <groupId>org.jfree</groupId>
+    <artifactId>jfreechart-csv-demo</artifactId>
+    <version>1.0</version>
 
-        <name>jfreechart-csv-demo</name>
+    <name>jfreechart-csv-demo</name>
 
-        <properties>
-            <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-            <maven.compiler.source>15</maven.compiler.source>
-            <maven.compiler.target>15</maven.compiler.target>
-        </properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>15</maven.compiler.source>
+        <maven.compiler.target>15</maven.compiler.target>
+    </properties>
 
-        <dependencies>
-            <dependency>
-                <groupId>com.opencsv</groupId>
-                <artifactId>opencsv</artifactId>
-                <version>5.3</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jfree</groupId>
-                <artifactId>jfreechart</artifactId>
-                <version>1.5.1</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jfree</groupId>
-                <artifactId>org.jfree.svg</artifactId>
-                <version>4.1</version>
-            </dependency>
-        </dependencies>
-    
-        <build>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-clean-plugin</artifactId>
-                    <version>3.1.0</version>
-                </plugin>
+    <dependencies>
+        <dependency>
+            <groupId>com.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>5.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jfree</groupId>
+            <artifactId>jfreechart</artifactId>
+            <version>1.5.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jfree</groupId>
+            <artifactId>org.jfree.svg</artifactId>
+            <version>4.1</version>
+        </dependency>
+    </dependencies>
 
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.8.1</version>
-                    <configuration>
-                        <source>${maven.compiler.source}</source>
-                        <target>${maven.compiler.target}</target>
-                        <encoding>${project.build.sourceEncoding}</encoding>                
-                    </configuration>
-                </plugin>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.1.0</version>
+            </plugin>
 
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-resources-plugin</artifactId>
-                    <version>3.1.0</version>
-                    <configuration>
-                        <encoding>${project.build.sourceEncoding}</encoding>
-                    </configuration>
-                </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>                
+                </configuration>
+            </plugin>
 
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.2.0</version>
-                    <configuration>
-                        <archive>
-                            <manifest>
-                                <mainClass>org.jfree.chart.demo.csv.App</mainClass>
-                            </manifest>
-                        </archive>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-dependency-plugin</artifactId>
-                    <version>3.1.2</version>
-                    <executions>
-                        <execution>
-                            <id>copy-dependencies</id>
-                            <phase>package</phase>
-                            <goals>
-                                <goal>copy-dependencies</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-            </plugins>
-        </build>
-    </project>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>org.jfree.chart.demo.csv.App</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.1.2</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
+```
 
-If you are not very familiar with Maven, don't focus too much on the details in the pom.xml for now.  The most important section is the dependencies, where we have declared that we want to use OpenCSV version 5.3, JFreeChart version 1.5.1 and JFreeSVG version 4.1.  Later when we build the project, Maven will download these dependencies automatically.  
+If you are not very familiar with Maven, don't focus too much on the details in the `pom.xml` for now.  The most important section is the dependencies, where we have declared that we want to use OpenCSV version 5.3, JFreeChart version 1.5.1 and JFreeSVG version 4.1.  Later when we build the project, Maven will download these dependencies automatically.  
 
 The plugin section is related to Maven itself and controls the versions of plugins that will be used by Maven when we build our application.  There is also an important detail in the configuration for the maven-jar-plugin, where we've specified the name of the main class for the application.  This will add some info to the jar file to make it simpler to run the application once it is complete.
 
 Next, we will begin creating the source files for our Java application.  Now, Maven expects to find project files arranged in a certain way, so we will first create a directory to contain the Java application source code, by convention `src/main/java`:
 
-    $ mkdir -p src/main/java
+```bash
+$ mkdir -p src/main/java
+```
 
 Now switch to the java directory:
 
